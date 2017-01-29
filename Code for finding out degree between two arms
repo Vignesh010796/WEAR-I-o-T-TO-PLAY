@@ -14,13 +14,13 @@ The circuit:
 // these constants describe the pins. They won't change:
 const int groundpin = 18;             // analog input pin 4 -- ground
 const int powerpin = 19;              // analog input pin 5 -- voltage
-const int x1pin = A2;                  // x-axis of the accelerometer
-const int y1pin = A1;                  // y-axis
-const int z1pin = A0;                  // z-axis (only on 3-axis models)
-const int x1pin = A5;                  // x-axis of the accelerometer
-const int y1pin = A4;                  // y-axis
-const int z1pin = A3;                  // z-axis (only on 3-axis models)
-
+const int x1 = A2;                  // x-axis of the accelerometer
+const int y1 = A1;                  // y-axis
+const int z1 = A0;                  // z-axis (only on 3-axis models)
+const int x2 = A5;                  // x-axis of the accelerometer
+const int y2 = A4;                  // y-axis
+const int z2 = A3;                  // z-axis (only on 3-axis models)
+const int a,b,c;
 void setup() {
   // initialize the serial communications:
   Serial.begin(9600);
@@ -37,16 +37,37 @@ void setup() {
 
 void loop() {
   // print the sensor values:
-  Serial.print(analogRead(x1pin));
-  // print a tab between values:
-  Serial.print("\t");
-  Serial.print(analogRead(y1pin));
-  Serial.print(analogRead(z1pin));
-  Serial.print(analogRead(x2pin));
-  Serial.print(analogRead(y2pin));
-  Serial.print(analogRead(z2pin));
+  Serial.print(analogRead(x1));
+  Serial.print(analogRead(y1));
+  Serial.print(analogRead(z1));
+  Serial.print(analogRead(x2));
+  Serial.print(analogRead(y2));
+  Serial.print(analogRead(z2));
   Serial.println();
+  a=x1-x2;
+  b=y1-y2;
+  c=z1-z2;
+  Serial.print("\t");
+  Serial.print(a);
+  Serial.print(b);
+  Serial.print(c);
   
+  if  (100<a<200)
+{
+Serial.print("x-axis within limit");
+}
+ 
+  elif  (-50<b<670)
+{
+Serial.print("y-axis within limit");
+} 
+  elif  (-100<c<100)
+{
+Serial.print("z-axis within limit");
+}
+else{
+Serial.print("CHUCKNG");
+}
 // delay before next reading:
   delay(100);
 }
